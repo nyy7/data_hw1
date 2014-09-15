@@ -119,7 +119,7 @@ def GetPrecisionRecallF1(predict_result, real_result):
 
 k = 10
 
-for data_size in range(10, 100, 10):
+for data_size in range(1, 10, 2):
 
 	data_auth1 = GenerateData('pg1661.txt', data_size)
 	data_auth2 = GenerateData('pg31100.txt', data_size)
@@ -133,7 +133,10 @@ for data_size in range(10, 100, 10):
 	for d in data_auth2:
         	target.append(1)
 
+	# laplace smoothing
 	clf = MultinomialNB()
+	# Maximum likelihood relative frequency estimator
+	#clf = MultinomialNB(alpha = 0)
 
 	scores = cross_val_score(clf, data_total, target, k)
 	mean_score = [0.0, 0.0, 0.0]
